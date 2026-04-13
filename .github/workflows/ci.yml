@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Actualizar npm
-        run: npm install -g npm@latest
-
       - name: Instalar dependencias
         run: npm install
 
@@ -43,9 +40,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Actualizar npm
-        run: npm install -g npm@latest
 
       - name: Instalar dependencias
         run: npm install
@@ -71,9 +65,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Actualizar npm
-        run: npm install -g npm@latest
 
       - name: Instalar dependencias
         run: npm install
