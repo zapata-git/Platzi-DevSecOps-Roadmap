@@ -1,6 +1,6 @@
-name: CI — Platzi DevSecOps Roadmap
+name: CI - Platzi DevSecOps Roadmap
 
-# Cuándo corre este pipeline:
+# Cuando corre este pipeline:
 # - En cada Pull Request hacia main (bloquea el merge si falla)
 # - En cada push directo a main
 on:
@@ -10,56 +10,54 @@ on:
     branches: [main]
 
 jobs:
-  # ─────────────────────────────────────────────
-  # JOB 1: Calidad del código
-  # Verifica que el código compila y está limpio
-  # ─────────────────────────────────────────────
+  # ---------------------------------------------------
+  # JOB 1: Calidad del codigo
+  # Verifica que el codigo compila y esta limpio
+  # ---------------------------------------------------
   quality:
     name: TypeScript + Lint
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Descarga el código del repo
-      - name: Checkout código
+      - name: Checkout codigo
         uses: actions/checkout@v4
 
-      # 2. Configura Node.js (mismo entorno que desarrollo)
-      - name: Setup Node.js
+      # Vite 8 requiere Node >=20.19.0 o >=22.12.0
+      # Usamos Node 22 LTS para garantizar compatibilidad
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'          # cachea node_modules para acelerar runs futuros
+          node-version: '22'
+          cache: 'npm'
 
-      # 3. Instala dependencias exactas del package-lock.json
       - name: Instalar dependencias
         run: npm ci
 
-      # 4. TypeScript — verifica tipos sin generar archivos
-      #    Si hay un error de tipo, el pipeline falla aquí
+      # TypeScript -- verifica tipos sin generar archivos
       - name: Verificar TypeScript
         run: npx tsc --noEmit
 
-      # 5. ESLint — detecta patrones inseguros y malas prácticas
+      # ESLint -- detecta patrones inseguros y malas practicas
       - name: Lint
         run: npm run lint
 
-  # ─────────────────────────────────────────────
+  # ---------------------------------------------------
   # JOB 2: Build
-  # Confirma que la app compila para producción
-  # ─────────────────────────────────────────────
+  # Confirma que la app compila para produccion
+  # ---------------------------------------------------
   build:
-    name: Build producción
+    name: Build produccion
     runs-on: ubuntu-latest
-    needs: quality          # solo corre si el job anterior pasó
+    needs: quality
 
     steps:
-      - name: Checkout código
+      - name: Checkout codigo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Instalar dependencias
@@ -68,7 +66,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Guarda el build como artefacto descargable en GitHub
       - name: Subir artefacto del build
         uses: actions/upload-artifact@v4
         with:
@@ -76,23 +73,23 @@ jobs:
           path: dist/
           retention-days: 7
 
-  # ─────────────────────────────────────────────
+  # ---------------------------------------------------
   # JOB 3: Seguridad
   # Audita dependencias en busca de CVEs conocidas
-  # (relacionado con el módulo DevSecOps)
-  # ─────────────────────────────────────────────
+  # (relacionado con el modulo DevSecOps)
+  # ---------------------------------------------------
   security:
     name: Audit de dependencias
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout código
+      - name: Checkout codigo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Instalar dependencias
