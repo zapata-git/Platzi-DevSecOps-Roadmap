@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion, type HTMLMotionProps } from 'framer-motion';
 
 interface ButtonProps extends HTMLMotionProps<"button"> {

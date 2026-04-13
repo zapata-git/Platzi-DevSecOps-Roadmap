@@ -1,10 +1,11 @@
 import { type LucideIcon, KeyRound, ShieldAlert, Code, ShieldCheck, Lock, UserCheck, FileJson, Server, LayoutTemplate, Shield } from 'lucide-react';
+export type { LucideIcon };
 
 export interface CourseData {
   id: string;
   title: string;
   description: string;
-  icon: any; // We'll use Lucide icons dynamically
+  icon: LucideIcon;
   topics: { id: string; label: string }[];
 }
 

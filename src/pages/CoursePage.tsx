@@ -24,16 +24,14 @@ import { motion } from 'framer-motion';
 export function CoursePage() {
   const { courseId } = useParams();
   const course = courses.find(c => c.id === courseId);
-  const [activeTab, setActiveTab] = useState('');
+  const defaultTab = course?.topics[0]?.id ?? '';
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   // Sincronizar el primer tab activo al cambiar de curso
   useEffect(() => {
-    if (course && course.topics.length > 0) {
-      setActiveTab(course.topics[0].id);
-    } else {
-      setActiveTab('');
-    }
-  }, [courseId, course]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setActiveTab(course?.topics[0]?.id ?? '');
+  }, [courseId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!course) {
     return <Navigate to="/" replace />;

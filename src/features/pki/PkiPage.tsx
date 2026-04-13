@@ -315,7 +315,6 @@ function TrustChain() {
                     borderRadius: 'var(--radius-md)', border: `1px solid ${color}55`,
                     backgroundColor: 'transparent', color, cursor: 'pointer', fontSize: '0.78rem',
                   }}
-                  onClick={(e) => { e.stopPropagation(); setSelected('leaf'); }}
                 >
                   Ver certificado completo ↓
                 </button>

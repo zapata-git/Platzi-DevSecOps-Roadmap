@@ -1,10 +1,9 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { motion } from 'framer-motion';
 import { isPrime, findPrimitiveRoots } from '../../utils/mathUtils';
-import { DEFAULT_P, DEFAULT_G } from '../../constants/dh-defaults';
 
 interface Props {
   p: string;

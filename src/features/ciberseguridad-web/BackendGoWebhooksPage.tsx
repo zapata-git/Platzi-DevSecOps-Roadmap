@@ -11,12 +11,11 @@ import {
   Settings2,
   FileCode2,
   PackageCheck,
-  ArrowRight,
   Zap,
   Bell,
 } from 'lucide-react';
 
-const Section = ({ icon: Icon, color, title, children }: { icon: any; color: string; title: string; children: React.ReactNode }) => (
+const Section = ({ icon: Icon, color, title, children }: { icon: React.ComponentType<{ size?: number; color?: string }>; color: string; title: string; children: React.ReactNode }) => (
   <Card style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color }}>
       <Icon size={26} />

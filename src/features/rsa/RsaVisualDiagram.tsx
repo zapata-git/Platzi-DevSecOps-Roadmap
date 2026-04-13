@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { KeyRound, Lock, Unlock, FileText, ArrowRight, ShieldCheck } from 'lucide-react';
+import { KeyRound, Lock, Unlock, FileText, ArrowRight } from 'lucide-react';
 import { type RsaStep } from '../../hooks/useRsa';
 
 interface Props {
@@ -12,7 +12,7 @@ export function RsaVisualDiagram({ currentStep }: Props) {
   const isPast = (target: RsaStep, current: RsaStep) => {
     if (current === 'INTRODUCTION') return false;
     const order = { KEY_GENERATION: 1, ENCRYPTION: 2, DECRYPTION: 3 };
-    // @ts-ignore
+    // @ts-expect-error order keys are dynamic
     return order[current] > order[target];
   };
 

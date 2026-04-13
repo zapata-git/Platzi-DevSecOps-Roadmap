@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -6,7 +6,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({ label, error, className = '', id, ...props }: InputProps) {
-  const inputId = id || Math.random().toString(36).substring(7);
+  const generatedId = useId();
+  const inputId = id || generatedId;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1rem' }} className={className}>
       {label && <label htmlFor={inputId} style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{label}</label>}

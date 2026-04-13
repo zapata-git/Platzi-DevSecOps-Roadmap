@@ -47,8 +47,10 @@ function CurveVisualizer({ a, b }: { a: number; b: number }) {
     return null;
   };
 
-  const P = useMemo(() => findPoint(-3), [a, b]);
-  const Q = useMemo(() => findPoint(0.5), [a, b]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const P = useMemo(() => findPoint(-3), [a, b, findPoint]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const Q = useMemo(() => findPoint(0.5), [a, b, findPoint]);
 
   // Point addition P + Q = R  (simplified real arithmetic for illustration)
   const addPoints = (

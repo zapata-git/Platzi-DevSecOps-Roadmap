@@ -1,8 +1,9 @@
 // Web Crypto API utilities — browser equivalent of Node.js crypto module
 // Based on: https://github.com/platzi/curso-criptografia
 
-export function bufferToHex(buffer: ArrayBuffer): string {
-  return Array.from(new Uint8Array(buffer))
+export function bufferToHex(buffer: ArrayBuffer | Uint8Array): string {
+  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+  return Array.from(bytes)
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
 }
@@ -110,9 +111,9 @@ export async function aesDecrypt(
   const ciphertext = hexToBuffer(ciphertextHex);
 
   const decrypted = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv },
+    { name: 'AES-GCM', iv: iv.buffer as ArrayBuffer },
     key,
-    ciphertext
+    ciphertext.buffer as ArrayBuffer
   );
 
   return new TextDecoder().decode(decrypted);
@@ -172,5 +173,5 @@ export async function rsaVerify(
 ): Promise<boolean> {
   const data = new TextEncoder().encode(text);
   const signature = hexToBuffer(signatureHex);
-  return crypto.subtle.verify('RSASSA-PKCS1-v1_5', publicKey, signature, data);
+  return crypto.subtle.verify('RSASSA-PKCS1-v1_5', publicKey, signature.buffer as ArrayBuffer, data);
 }

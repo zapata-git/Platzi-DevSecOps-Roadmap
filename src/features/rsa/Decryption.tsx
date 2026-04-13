@@ -10,7 +10,7 @@ interface Props {
   n: bigint | null;
   ciphertext: string;
   decryptedtext: string;
-  updateField: (field: any, val: string) => void;
+  updateField: (field: keyof import('../../hooks/useRsa').RsaState, val: string) => void;
   onReset: () => void;
   onBack: () => void;
 }
